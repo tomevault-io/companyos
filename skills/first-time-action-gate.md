@@ -1,6 +1,6 @@
 ---
 name: first-time-action-gate
-description: The first time you do any externally-visible action — first email batch, first marketplace push, first package publish, first production database migration, first webhook to a partner — apply explicit ceremony: dry-run, scoped test, operator confirmation, post-action verification, rollback awareness. From the second instance onward, the ceremony can relax to a routine check. The cost of the ceremony is small; the cost of a botched first action is permanent.
+description: The first time you do any externally-visible action — first email batch, first marketplace push, first package publish, first production database migration, first partner-webhook fire — apply explicit ceremony: dry-run, scoped test, operator confirmation, after-the-fact verification, rollback awareness. From the second instance onward, the ceremony can relax to a routine check. The cost of the ceremony is small; the cost of a botched first action is permanent.
 tier: universal
 ---
 
