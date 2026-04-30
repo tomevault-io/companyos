@@ -19,7 +19,7 @@ Apply the gate, in full, the first time you:
 - Publish a package version (especially the very first publish of a new package).
 - Apply a schema migration on any production-class database with real users.
 - Open a pull request or issue against any external repository (especially under a creator or partner's namespace).
-- Send a webhook or API call to a partner system with side effects.
+- Issue a webhook or API call to a partner system with side effects.
 - Trigger a data backfill or batch update affecting more than a handful of records.
 - Deploy any new automation that takes destructive action without per-instance human review.
 
@@ -40,7 +40,7 @@ Every gated action must have a dry-run mode that does everything except the dest
 - **For sends:** render the message, run the audit pipeline, log the would-have-sent records, do not invoke the SMTP or API send. Inspect the dry-run output the same way you'd inspect the live output.
 - **For pushes:** check out the target repo, generate the diff, validate the file contents, do not push. Diff is reviewed before the push step is unblocked.
 - **For migrations:** run against a non-production copy of the schema (test database, snapshot restore). Verify the up- and down- migrations both work.
-- **For webhooks:** send to a sink that captures the payload (a webhook bin, a local listener) and verify the payload shape matches expectations.
+- **For webhooks:** fire at a request bin (or local listener) that captures the payload and verify the payload shape matches expectations.
 
 If the action class has no dry-run mode, **build one before doing the action**. Building dry-run capability is a one-time cost that pays back on every future first-of-its-kind action.
 
@@ -51,7 +51,7 @@ After dry-run is clean, do the smallest live run possible.
 - **For sends:** 1 to 5 recipients, all under your direct control (your own addresses, team members who've consented to be in the test). Verify deliverability, spam-folder placement, link tracking, unsubscribe behaviour, reply path.
 - **For pushes:** 1 target, ideally a repo you own, with a clear "this is a first-run test" marker (commit message, branch name, labelled tag).
 - **For migrations:** apply to one row, one table, or a small subset, where the rollback is unambiguous if the result is wrong.
-- **For webhooks:** send to one partner endpoint with a low-stakes payload, verify acknowledgement, verify the partner's downstream system shows expected effects.
+- **For webhooks:** fire at one partner endpoint with a low-stakes payload, verify acknowledgement, verify the partner's downstream system shows expected effects.
 
 A scoped first run gives you:
 - Real-world signal the dry-run can't simulate (deliverability, partner system behaviour, network conditions).

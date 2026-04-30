@@ -92,7 +92,7 @@ If any new gotchas, conventions, or non-obvious facts were discovered during the
 
 - "Plugin manifest updates require a daemon restart, not just a reinstall."
 - "The audit script reads from the live weights file, so default-template changes need both files updated."
-- "This vendor's webhook payload differs between docs and reality — they actually send X, not Y."
+- "This vendor's webhook payload differs between docs and reality — they actually deliver X, not Y."
 
 Patterns survive across sessions and team members; the changelog and state file decay faster.
 
