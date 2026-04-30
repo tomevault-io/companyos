@@ -1,0 +1,133 @@
+# Project runbook surface — operator + agent commands.
+#
+# Adapt every recipe to your stack. Names, groups, and conventions are the
+# load-bearing pattern; the specific commands are placeholders. Replace
+# `<YOUR-X>` markers with your project's actual values.
+#
+# Install just (https://just.systems) if you don't have it.
+
+set shell := ["bash", "-cu"]
+set positional-arguments
+
+REPO := justfile_directory()
+
+# Default: list every recipe with its description.
+default:
+    @just --list --unsorted
+
+# ────────────────────────────────────────────────────────────────────
+# Health + diagnostics
+# ────────────────────────────────────────────────────────────────────
+
+# Aggregate health probe: state, kill-switches, recent errors.
+[group('health')]
+health:
+    @echo "═══ Service state ═══"
+    @# <YOUR-PROBE>: e.g. systemctl status <service>, docker ps, etc.
+    @echo "═══ Kill-switches ═══"
+    @# <YOUR-PROBE>: list any kill-switch files in your data dir.
+    @echo "═══ Recent errors (last 24h) ═══"
+    @# <YOUR-PROBE>: e.g. find logs/ -mmin -1440 -exec grep -l "error" {} \;
+
+# Database lock state — adapt for SQLite, Postgres, etc.
+[group('health')]
+db-lock-state:
+    @# <YOUR-PROBE>: e.g. sqlite3 <db> "PRAGMA wal_checkpoint(PASSIVE);"
+    @# or: psql -c "SELECT * FROM pg_stat_activity WHERE state != 'idle';"
+    @echo "(adapt to your database)"
+
+# ────────────────────────────────────────────────────────────────────
+# Smoke tests — run before commit
+# ────────────────────────────────────────────────────────────────────
+
+# Type-check or build the project.
+[group('smoke')]
+typecheck:
+    @# <YOUR-CMD>: e.g. tsc --noEmit, mypy, cargo check
+    @echo "(adapt to your stack)"
+
+# Run the test suite.
+[group('smoke')]
+test:
+    @# <YOUR-CMD>: e.g. pytest, npm test, cargo test, go test ./...
+    @echo "(adapt to your stack)"
+
+# ────────────────────────────────────────────────────────────────────
+# Operator runbooks (first-time-action class — see skills/first-time-action-gate.md)
+# ────────────────────────────────────────────────────────────────────
+
+# Deploy / publish to a target. Apply first-time-action-gate ceremony
+# the first time you publish anywhere; promote to routine after 2-3 clean runs.
+[group('runbook')]
+publish version:
+    @echo "═══ Publish v{{version}} ═══"
+    @echo "Pre-publish checklist:"
+    @echo "  1. just typecheck && just test (must pass)"
+    @echo "  2. Inspect the artefact (npm pack, docker build, etc.)"
+    @echo "  3. Smoke-test in scoped environment first"
+    @echo "  4. Operator confirmation before scaling"
+    @echo "(adapt to your publish surface — npm, docker, package registry, etc.)"
+
+# Schema migration apply. ALWAYS via operator review for first-time-on-live.
+[group('runbook')]
+migrate:
+    @echo "Migrations are first-time-action class for live tables."
+    @echo "Apply manually via your DB tool; do not auto-apply."
+    @echo "(adapt to your migration tool — alembic, supabase migrations, flyway, etc.)"
+
+# ────────────────────────────────────────────────────────────────────
+# Authoring + ratification
+# ────────────────────────────────────────────────────────────────────
+
+# Scaffold a new amendment file under constitutions/amendments/<doc>/.
+[group('author')]
+amend doc slug:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DATE=$(date -u +%Y-%m-%d)
+    DEST="{{REPO}}/constitutions/amendments/{{doc}}/${DATE}-{{slug}}.md"
+    mkdir -p "$(dirname "$DEST")"
+    if [ -f "$DEST" ]; then
+      echo "Already exists: $DEST"
+      exit 1
+    fi
+    cat > "$DEST" <<'EOF'
+    # Amendment: <short title>
+
+    **Section affected:** `{{doc}}.md § <N>`
+
+    **Proposed change:**
+
+    <verbatim text to add/remove/edit>
+
+    **Why:**
+
+    <evidence, citations, the case for change>
+
+    **Confidence:** almost_certain | likely | roughly_even | unlikely | remote
+    EOF
+    echo "Drafted: $DEST"
+    echo "Operator ratifies via direct edit of constitutions/{{doc}}.md"
+
+# ────────────────────────────────────────────────────────────────────
+# Deploy
+# ────────────────────────────────────────────────────────────────────
+
+# Push to all targets. Multi-target deploys: apply skills/multi-target-publish.md.
+[group('deploy')]
+push:
+    @# <YOUR-CMD>: e.g. git push origin main + npm publish + docker push
+    @echo "(adapt to your targets — see skills/multi-target-publish.md for sequencing)"
+
+# ────────────────────────────────────────────────────────────────────
+# Session ritual
+# ────────────────────────────────────────────────────────────────────
+
+# End-of-session: invoke session-debrief skill, commit context files, push.
+[group('ritual')]
+session-end:
+    @echo "Run inside your AI agent:"
+    @echo "  invoke skill: session-debrief"
+    @echo
+    @echo "Then commit + push:"
+    @echo "  git add <YOUR-CONTEXT-DIR>/ && git commit -m 'docs: session debrief' && git push"

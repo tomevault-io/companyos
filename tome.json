@@ -1,0 +1,132 @@
+{
+  "spec_version": "1.0.0",
+  "id": "tomevault/companyos",
+  "name": "CompanyOS",
+  "version": "0.1.0",
+  "description": "A complete, opinionated, fork-friendly operating system for an AI-instructed company. Three layers — markdown skills (patterns of thought for agents), a justfile template (procedures for humans-or-agents), and a constitutional pattern (operator-owned strategy with amendment flow). Thirteen universal skills, dogfooded by the company that authored them.",
+  "creator": "tomevault",
+  "license": "MIT",
+  "homepage": "https://tomevault.io/tome/tomevault/companyos",
+  "repository": "https://github.com/tomevault-io/companyos",
+  "kind": "tome",
+  "tags": [
+    "company-os",
+    "agent-skills",
+    "operating-system",
+    "markdown-os",
+    "company-as-code",
+    "claude-code",
+    "agents-md",
+    "ai-instructed-company"
+  ],
+  "components": [
+    {
+      "id": "skills/decision-memo",
+      "kind": "skill",
+      "filename": "skills/decision-memo.md",
+      "description": "Senior-leadership decision memo before non-trivial proposals — seven sections, four attacks."
+    },
+    {
+      "id": "skills/pre-ship-adversary",
+      "kind": "skill",
+      "filename": "skills/pre-ship-adversary.md",
+      "description": "Self-attack pass before commit — scope creep, failure modes, rollback, shipping-gate simulation."
+    },
+    {
+      "id": "skills/adversarial-test",
+      "kind": "skill",
+      "filename": "skills/adversarial-test.md",
+      "description": "Post-build third-party adversarial review — find what the builder missed."
+    },
+    {
+      "id": "skills/diagnose-before-acting",
+      "kind": "skill",
+      "filename": "skills/diagnose-before-acting.md",
+      "description": "Diagnose-first sequence under pressure. Read-only probes, propose fix, confirm destructive step, verify after."
+    },
+    {
+      "id": "skills/vocabulary-check",
+      "kind": "skill",
+      "filename": "skills/vocabulary-check.md",
+      "description": "External-string discipline — owned terms, required triplets, banned substitutes, formatting rules."
+    },
+    {
+      "id": "skills/hard-evidence-under-pushback",
+      "kind": "skill",
+      "filename": "skills/hard-evidence-under-pushback.md",
+      "description": "When a stated fact is contested, generate fresh probe evidence rather than restate the claim."
+    },
+    {
+      "id": "skills/strategic-realignment",
+      "kind": "skill",
+      "filename": "skills/strategic-realignment.md",
+      "description": "When the operator says 'what's next?' — cross-ground reality, surface drift, present three named lanes, recommend one."
+    },
+    {
+      "id": "skills/memory-write",
+      "kind": "skill",
+      "filename": "skills/memory-write.md",
+      "description": "Persistent memory across sessions — four-type taxonomy, what NOT to save, structured body."
+    },
+    {
+      "id": "skills/incident-recovery",
+      "kind": "skill",
+      "filename": "skills/incident-recovery.md",
+      "description": "Universal service-freeze recovery sequence — diagnose, verify-data-safe, kill, restart, capture pattern."
+    },
+    {
+      "id": "skills/multi-target-publish",
+      "kind": "skill",
+      "filename": "skills/multi-target-publish.md",
+      "description": "Sequencing pattern for changes spanning multiple repos / packages / deploy targets with different mechanisms."
+    },
+    {
+      "id": "skills/first-time-action-gate",
+      "kind": "skill",
+      "filename": "skills/first-time-action-gate.md",
+      "description": "Ceremony for first externally-visible actions — dry-run, scoped run, operator confirmation, post-action verification."
+    },
+    {
+      "id": "skills/changelog",
+      "kind": "skill",
+      "filename": "skills/changelog.md",
+      "description": "Add a rich-context entry to the project's rolling changelog — the why beyond commit messages."
+    },
+    {
+      "id": "skills/session-debrief",
+      "kind": "skill",
+      "filename": "skills/session-debrief.md",
+      "description": "End-of-session ritual — archive previous, summarise this, update state, enrich changelog."
+    },
+    {
+      "id": "AGENTS.md",
+      "kind": "config",
+      "filename": "AGENTS.md",
+      "description": "Root operating instructions for an AI-instructed company. Loads at agent session start."
+    },
+    {
+      "id": "justfile.template",
+      "kind": "config",
+      "filename": "justfile.template",
+      "description": "Generic operator-runbook template — adapt placeholders to your project."
+    },
+    {
+      "id": "docs/three-layer-pattern",
+      "kind": "doc",
+      "filename": "docs/three-layer-pattern.md",
+      "description": "How skills, justfile, and constitutions compose without contaminating each other."
+    },
+    {
+      "id": "docs/memory-taxonomy",
+      "kind": "doc",
+      "filename": "docs/memory-taxonomy.md",
+      "description": "The four-type memory taxonomy — user, feedback, project, reference."
+    }
+  ],
+  "depends_on": [],
+  "provenance": {
+    "human_authored": true,
+    "ai_assisted": true,
+    "note": "Authored by TomeVault (founder + Claude Code) through six weeks of working sessions. Every skill is dogfooded by the company that authored it — same files, same triggers, same patterns of thought."
+  }
+}
