@@ -1,0 +1,164 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "tomevault:overlay_version": "0.1.0",
+  "tomevault:overlay_docs": "https://tomevault.io/policy/quality-scoring",
+  "tomevault:note": "tomevault.json is a project-root parallel to /.well-known/agent-skills/index.json. Same shape, no .well-known dependency. Useful for repos that don't control web-server routing. Either path works; consumers should check .well-known first, then fall back to /tomevault.json at the project or domain root.",
+  "skills": [
+    {
+      "name": "adversarial-test",
+      "type": "skill-md",
+      "description": "Post-build adversarial review — a fresh agent stress-tests recent changes for bugs, regressions, conflicts, and missed edge cases. Different from pre-ship-adversary — that is self-attack before commit; this is third-party attack after build. Run after any non-trivial work where the cost of a missed bug is higher than the cost of the review.",
+      "url": "skills/adversarial-test.md",
+      "digest": "sha256:8177191079cd73a13c954dab39c438d4088457f3043667472b03dc0e2cb2b1ec",
+      "tomevault:quality": {
+        "tier": "gold",
+        "score": 45,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "changelog",
+      "type": "skill-md",
+      "description": "Add a rich context entry to the project's rolling changelog beyond what an auto-hook captures. Use after a significant feature, fix, refactor, or decision — the why beyond the commit message.",
+      "url": "skills/changelog.md",
+      "digest": "sha256:208770eb7062ae906ebaba1f12746f70e560af3f7c58a8b7828a1ebc84dc7bc6",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 37,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "decision-memo",
+      "type": "skill-md",
+      "description": "Produce a senior-leadership decision memo before proposing a non-trivial change. Seven sections — observation, hypothesis, proposal, evidence, blast radius, adversarial test, recommendation. Use when the change is non-obvious, affects shared state, or you want the operator to make an informed call instead of trusting your judgment.",
+      "url": "skills/decision-memo.md",
+      "digest": "sha256:a8808a7608c2f26bece2887f9f5543d9806771ed66e6da5dffab59d1a587dd22",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 40,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "diagnose-before-acting",
+      "type": "skill-md",
+      "description": "Under operator pressure (\"X is broken — fix it\"), the first move is to diagnose what's actually broken vs what only looks broken from the alert. Run read-only probes; propose a fix sequence; confirm; THEN execute. Saves the class of bug where the obvious fix breaks something different.",
+      "url": "skills/diagnose-before-acting.md",
+      "digest": "sha256:0d2fc2bbe4b8bdcada7f42136911e86f166270f25e05fbb5fe96956c26b300ee",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 34,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "first-time-action-gate",
+      "type": "skill-md",
+      "description": "The first time you do any externally-visible action — first email batch, first marketplace push, first package publish, first production database migration, first partner-webhook fire — apply explicit ceremony: dry-run, scoped test, operator confirmation, after-the-fact verification, rollback awareness. From the second instance onward, the ceremony can relax to a routine check. The cost of the ceremony is small; the cost of a botched first action is permanent.",
+      "url": "skills/first-time-action-gate.md",
+      "digest": "sha256:2fdec6c113bf05028dad82b0e2e703572a162925dc42c571999072606e71c2ed",
+      "tomevault:quality": {
+        "tier": "gold",
+        "score": 45,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "hard-evidence-under-pushback",
+      "type": "skill-md",
+      "description": "When the operator contests a factual claim you've made (\"are you sure X?\", \"I don't think that's right\", \"show me\"), generate fresh direct evidence — a live probe, a captured response, a reproducible self-test — instead of restating the original claim more confidently. Defuses the \"I'm right / you're wrong\" loop that wastes minutes and erodes trust.",
+      "url": "skills/hard-evidence-under-pushback.md",
+      "digest": "sha256:b48d3c59084e4a255427953aa5d1ce171c6b95d7d1b278b93bb227cc466fe7e0",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 34,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "incident-recovery",
+      "type": "skill-md",
+      "description": "When a long-running service freezes — pipeline, queue, worker, sync job — the recovery sequence is the same regardless of language or stack. Investigate before killing; verify the kill is data-safe; restart with a verification probe; capture the contention pattern as memory so the next instance is faster. The pattern beats writing a project-specific runbook for every service.",
+      "url": "skills/incident-recovery.md",
+      "digest": "sha256:d19cd22f183dfb3ac7d1d0949b9aaae97af8842cd2892a3d2679c74f47490748",
+      "tomevault:quality": {
+        "tier": "gold",
+        "score": 47,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "memory-write",
+      "type": "skill-md",
+      "description": "Persistent memory across sessions is one of the highest-leverage things a long-running agent can do — but only if you write the right things in the right shape. This skill defines the four-type taxonomy (user / feedback / project / reference), what NOT to save, and the structure each entry takes. Without discipline, memory becomes a dumping ground that decays into noise.",
+      "url": "skills/memory-write.md",
+      "digest": "sha256:950f6eabe89148152c45214b1d69f8e6a9ca13fefed6f7d0a235f2ceea86c90f",
+      "tomevault:quality": {
+        "tier": "gold",
+        "score": 42,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "multi-target-publish",
+      "type": "skill-md",
+      "description": "When a single change spans multiple repos / packages / deploy targets with different deploy mechanisms (auto-deploy poll vs manual push vs CDN invalidation vs npm publish), the order matters and each target needs its own verification. This skill is the sequencing pattern: pre-checks, deploy-order, per-target verification, rollback awareness. Cheaper than a per-project bespoke runbook for every release.",
+      "url": "skills/multi-target-publish.md",
+      "digest": "sha256:7c0be4aff1332e43230d1595eaae388c0bf9124f77c7fba14e88a04a86218025",
+      "tomevault:quality": {
+        "tier": "gold",
+        "score": 45,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "pre-ship-adversary",
+      "type": "skill-md",
+      "description": "Before committing a non-trivial change, spend 2-3 minutes attacking the change yourself — scope creep, failure modes, rollback, shipping-gate simulation. The cheap version of a formal adversary stress-test, internalised for direct coding. Catches the class of scope-creep bug where a config change is read by more consumers than the author intended.",
+      "url": "skills/pre-ship-adversary.md",
+      "digest": "sha256:d2d6420afccc86302570b71edb693bd7ba36059a7b5a0f602b6e16cdacbe9961",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 37,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "session-debrief",
+      "type": "skill-md",
+      "description": "End-of-session ritual — archive the previous session's notes, write a tight summary of this session's outcomes, update the project state file, enrich the changelog. Bridges sessions so context survives even when the conversation dies. Pattern is universal; specific file paths are project-conventional.",
+      "url": "skills/session-debrief.md",
+      "digest": "sha256:8839501bcb1d7db8038b96dbb81998e68e9c9288a578ec65442a63e762a411d3",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 37,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "strategic-realignment",
+      "type": "skill-md",
+      "description": "When the operator says \"what's next?\" / \"review the plans\" / \"where are we?\" — the question is rarely \"list our open tickets.\" It's \"help me see the shape of the next arc.\" The skill is to cross-ground reality (recent commits, live state, observed metrics) against the canonical strategy docs, surface the genuine drift, present 2-3 named options with tradeoffs, and let the operator decide. Don't decide for them; don't list everything; don't restate the strategy.",
+      "url": "skills/strategic-realignment.md",
+      "digest": "sha256:b7cada221ec492dd63e0662ae258ddef2a4fc59cd5de873b92e6b754647f5b60",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 37,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    },
+    {
+      "name": "vocabulary-check",
+      "type": "skill-md",
+      "description": "Every external string (email, landing copy, README, CLI output, dashboard label, marketplace description) passes through the project's vocabulary discipline before ship. Catches drift that compounds — internal jargon leaks into user copy, banned substitutes creep back in, the user-facing triplet stops being said. Pattern + structure for any project; the project owns its specific vocab.",
+      "url": "skills/vocabulary-check.md",
+      "digest": "sha256:e5b8f08bd681ce5a8a708dd3fcfa7b61fa31dfc475526667ff706cb5ee46586a",
+      "tomevault:quality": {
+        "tier": "silver",
+        "score": 37,
+        "rubric": "https://tomevault.io/policy/quality-scoring"
+      }
+    }
+  ]
+}
