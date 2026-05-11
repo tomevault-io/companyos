@@ -1,0 +1,165 @@
+# tome.yaml — CompanyOS
+#
+# First internal dogfood of the .tome/tome.yaml meta-manifest format.
+# Spec: https://tomevault.io/spec/tome-spec-draft-01 (not yet published; see
+#       briefings/tome-spec-draft-01.md in the tomevault working tree)
+# Schema: tome-spec-draft-01
+#
+# This file is the source of truth for the CompanyOS Tome. The existing
+# tome.json and tomevault.json files in this repo are kept for backward
+# compatibility with the running pipeline; once stack-rank #1 ships the
+# manifest-first renderer, those files become derived artifacts of this one.
+
+manifest:
+  schema_version: tome-spec-draft-01
+  id: tomevault-io/companyos
+  name: CompanyOS
+  version: 0.1.0
+  description: |
+    A complete operating system for a one-person company building with AI
+    agents. 17 components plus 13 universal skills covering session protocol,
+    decision discipline, incident recovery, multi-target publishing, and the
+    handful of habits that turn one operator plus Claude Code into a
+    functioning company. Designed to be vendored, edited, and made yours.
+  authors:
+    - name: Oli Boyd
+      handle: olijboyd
+      url: https://github.com/olijboyd
+  license: MIT
+  created_at: 2026-05-04T00:00:00Z
+  updated_at: 2026-05-10T00:00:00Z
+
+includes:
+  configs:
+    - path: CLAUDE.md
+      kind: claude-md
+    - path: AGENTS.md
+      kind: agents-md
+  skills:
+    - path: skills/adversarial-test.md
+      name: adversarial-test
+    - path: skills/changelog.md
+      name: changelog
+    - path: skills/decision-memo.md
+      name: decision-memo
+    - path: skills/diagnose-before-acting.md
+      name: diagnose-before-acting
+    - path: skills/first-time-action-gate.md
+      name: first-time-action-gate
+    - path: skills/hard-evidence-under-pushback.md
+      name: hard-evidence-under-pushback
+    - path: skills/incident-recovery.md
+      name: incident-recovery
+    - path: skills/memory-write.md
+      name: memory-write
+    - path: skills/multi-target-publish.md
+      name: multi-target-publish
+    - path: skills/pre-ship-adversary.md
+      name: pre-ship-adversary
+    - path: skills/session-debrief.md
+      name: session-debrief
+    - path: skills/strategic-realignment.md
+      name: strategic-realignment
+    - path: skills/vocabulary-check.md
+      name: vocabulary-check
+
+targets:
+  # Layer A configs already in the repo. Derived = false; the manifest just
+  # names where they live.
+  - format: claude-md
+    output: CLAUDE.md
+    source:
+      type: include
+      ref: configs[0]
+  - format: agents-md
+    output: AGENTS.md
+    source:
+      type: include
+      ref: configs[1]
+
+  # Layer A artifacts to be derived from the existing CLAUDE.md. Renderers
+  # that don't know these formats SHOULD skip silently per draft-01 §targets.
+  - format: gemini-md
+    output: GEMINI.md
+    source:
+      type: render
+      template: gemini-md-from-claude-md
+      input: configs[0]
+  - format: cursor-rules
+    output: .cursor/rules/companyos.mdc
+    source:
+      type: render
+      template: cursor-rules-from-claude-md
+      input: configs[0]
+  - format: windsurf-rules
+    output: .windsurfrules
+    source:
+      type: render
+      template: windsurf-rules-from-claude-md
+      input: configs[0]
+  - format: copilot-instructions
+    output: .github/copilot-instructions.md
+    source:
+      type: render
+      template: copilot-instructions-from-claude-md
+      input: configs[0]
+
+  # Skill bundle. Direct passthrough of the SKILL.md files. Universal format
+  # per agentskills.io spec; no per-format conversion needed.
+  - format: skills-bundle
+    output: skills/
+    source:
+      type: include-many
+      ref: skills[*]
+
+  # Backward-compat target: regenerate the existing tome.json the pipeline
+  # currently consumes. Drops out of the manifest once the runtime reads
+  # tome.yaml directly.
+  - format: tome-json-v1
+    output: tome.json
+    source:
+      type: render
+      template: tome-json-v1-from-manifest
+      input: manifest
+
+  # Backward-compat target: regenerate the agentskills.io discovery file at
+  # the project root. Same shape as /.well-known/agent-skills/index.json.
+  - format: agent-skills-discovery
+    output: tomevault.json
+    source:
+      type: render
+      template: agent-skills-discovery-from-manifest
+      input: manifest
+
+security:
+  scanner:
+    ruleset: github.com/tomevault-io/vault-rules@v1.1.0
+    # CompanyOS skills are operating-procedure docs. They touch session
+    # state, write files, run shell commands; AST-01 (prompt injection)
+    # and AST-08 (excessive agency) are the relevant categories.
+    ast10_categories:
+      - AST-01
+      - AST-05
+      - AST-08
+  permissions:
+    # CompanyOS skills assume read access to the repo. Some skills
+    # (changelog, session-debrief, memory-write) write to .context/ or
+    # ~/.claude/projects/. Declared explicitly.
+    filesystem:
+      - read
+      - write
+    # Session-debrief and incident-recovery shell out to git, gh, and
+    # related developer tooling. Declared as exec.
+    network: []
+    exec:
+      - git
+      - gh
+    secrets: []
+  attestation:
+    # Mirrors tome.lock.manifest_hash. Excluded from the manifest_hash
+    # computation itself (otherwise it would chase its own tail).
+    method: sha256-content
+    value: sha256-d768834ca5150675d630a01cfb693a98f2762ee08fbfa01957b57538693d6e8c
+    signed_by: null
+  scan_required: true
+  policy_url: https://tomevault.io/policy/security-scanning

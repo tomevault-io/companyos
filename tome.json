@@ -1,12 +1,12 @@
 {
   "spec_version": "1.0.0",
-  "id": "tomevault/companyos",
+  "id": "tomevault-io/companyos",
   "name": "CompanyOS",
   "version": "0.1.0",
-  "description": "A complete, opinionated, fork-friendly operating system for an AI-instructed company. Three layers — markdown skills (patterns of thought for agents), a justfile template (procedures for humans-or-agents), and a constitutional pattern (operator-owned strategy with amendment flow). Thirteen universal skills, dogfooded by the company that authored them.",
-  "creator": "tomevault",
+  "description": "A complete operating system for a one-person company building with AI\nagents. 17 components plus 13 universal skills covering session protocol,\ndecision discipline, incident recovery, multi-target publishing, and the\nhandful of habits that turn one operator plus Claude Code into a\nfunctioning company. Designed to be vendored, edited, and made yours.",
+  "creator": "olijboyd",
   "license": "MIT",
-  "homepage": "https://tomevault.io/tome/tomevault/companyos",
+  "homepage": "https://tomevault.io/tome/tomevault-io/companyos",
   "repository": "https://github.com/tomevault-io/companyos",
   "kind": "tome",
   "tags": [
