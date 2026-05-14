@@ -3,7 +3,7 @@
   "id": "tomevault-io/companyos",
   "name": "CompanyOS",
   "version": "0.1.0",
-  "description": "A complete operating system for a one-person company building with AI\nagents. 17 components plus 13 universal skills covering session protocol,\ndecision discipline, incident recovery, multi-target publishing, and the\nhandful of habits that turn one operator plus Claude Code into a\nfunctioning company. Designed to be vendored, edited, and made yours.",
+  "description": "A complete operating system for a one-person company building with AI\nagents. 17 components plus 20 universal skills covering session protocol,\ndecision discipline, incident recovery, multi-target publishing, design\nand documentation discipline, pre-build interview and PRD authoring, and\nthe handful of habits that turn one operator plus Claude Code into a\nfunctioning company. Designed to be vendored, edited, and made yours.",
   "creator": "olijboyd",
   "license": "MIT",
   "homepage": "https://tomevault.io/tome/tomevault-io/companyos",
@@ -97,6 +97,48 @@
       "kind": "skill",
       "filename": "skills/session-debrief.md",
       "description": "End-of-session ritual — archive previous, summarise this, update state, enrich changelog."
+    },
+    {
+      "id": "skills/grill-me",
+      "kind": "skill",
+      "filename": "skills/grill-me.md",
+      "description": "Pre-build interview — walk the design tree one question at a time until a shared design concept exists, before any spec or code. Matt Pocock, MIT."
+    },
+    {
+      "id": "skills/to-prd",
+      "kind": "skill",
+      "filename": "skills/to-prd.md",
+      "description": "Synthesise the post-grill conversation into a dated PRD under briefings/ — no re-interviewing. Matt Pocock, MIT."
+    },
+    {
+      "id": "skills/improve-codebase-architecture",
+      "kind": "skill",
+      "filename": "skills/improve-codebase-architecture/SKILL.md",
+      "description": "Module-deepening audit — surface architectural friction and propose refactors that turn shallow modules into deep ones. Matt Pocock, MIT."
+    },
+    {
+      "id": "skills/docs-write",
+      "kind": "skill",
+      "filename": "skills/docs-write.md",
+      "description": "Post-LLM docs voice discipline — ban em-dashes in reference pages, sentence-case headings, per-doc-type voice (reference / explanation / tutorial). Apply before writing and as a pre-ship pass."
+    },
+    {
+      "id": "skills/roadmap-item",
+      "kind": "skill",
+      "filename": "skills/roadmap-item.md",
+      "description": "Add or revise a roadmap entry — three phases: spec confirmation with operator, doc insertion, commit confirmation."
+    },
+    {
+      "id": "skills/morning-brief",
+      "kind": "skill",
+      "filename": "skills/morning-brief.md",
+      "description": "Daily operator briefing from pulse data and memory hints — trustworthy snapshot, not a feed of agent findings; quiet days stay quiet."
+    },
+    {
+      "id": "skills/tomevault-design",
+      "kind": "skill",
+      "filename": "skills/tomevault-design.md",
+      "description": "Design orchestrator for UI work — composes four upstream design skills (design-an-interface, impeccable, taste-skill, ui-ux-pro-max) with project-specific design context."
     },
     {
       "id": "AGENTS.md",
