@@ -4,7 +4,7 @@
 
 Please report security problems privately, not in a public issue or pull request.
 
-Use GitHub's private reporting for this repository: open the **Security** tab and choose **Report a vulnerability**, or go straight to
+Use GitHub's private vulnerability reporting for this repository (you need to be signed in to GitHub):
 https://github.com/tomevault-io/companyos/security/advisories/new
 
 Include what you found, how to reproduce it, and what you think the impact is. We will acknowledge the report, keep you updated while we investigate, and credit you in the fix unless you ask us not to.
